@@ -1,0 +1,18 @@
+## Pipeline A
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script: |
+    echo "Just produce something" > test.txt
+  displayName: 'Create a file'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(System.DefaultWorkingDirectory)'
+    ArtifactName: 'drop-$(Build.BuildId)'
+    publishLocation: 'Container'
